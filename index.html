@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>近侍选拔 · 本丸人事课</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:14px;background:radial-gradient(circle at 50% 0%,#f6efdc,#e8dfc6 70%,#ddd2b4);font-family:"Hiragino Mincho ProN","Yu Mincho",-apple-system,"PingFang SC","Songti SC",serif;}
+#app{position:relative;width:100%;max-width:450px;height:550px;border-radius:8px;overflow:hidden;background:#fdf8e9;box-shadow:0 16px 44px rgba(120,100,60,.32),0 0 0 1px rgba(255,255,255,.6) inset;color:#4a4232;}
+#app:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 20% 30%,rgba(200,180,130,.16) 0 1px,transparent 2px),radial-gradient(circle at 70% 60%,rgba(200,180,130,.14) 0 1px,transparent 2px);background-size:26px 26px,34px 34px;}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;}
+.hide{display:none;}
+.cover{align-items:center;justify-content:center;text-align:center;padding:28px;}
+.cover .deco{font-size:15px;letter-spacing:.5em;margin-bottom:14px;color:#b5483f;}
+.cover .k{font-size:10px;letter-spacing:.44em;color:#a89a72;}
+.cover h1{margin:16px 0 12px;font-size:26px;letter-spacing:.24em;color:#5c5138;font-weight:600;}
+.cover .en{font-size:10px;letter-spacing:.32em;color:#b3a67e;}
+.cover .deco2{font-size:13px;letter-spacing:.6em;margin-top:12px;opacity:.85;}
+.cover .line{width:52px;height:1px;background:#c9b98a;margin:22px 0;}
+.cover .note{font-size:11.5px;line-height:2.1;color:#8b7f5e;letter-spacing:.05em;}
+.cover button{margin-top:24px;padding:12px 44px;border-radius:4px;border:1px solid #b5483f;background:transparent;color:#b5483f;font-family:inherit;font-size:13px;letter-spacing:.24em;cursor:pointer;transition:.3s;}
+.cover button:hover{background:#b5483f;color:#fdf8e9;}
+.top{padding:13px 18px 10px;border-bottom:1px solid #e2d6b4;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(253,248,233,.3));}
+.trow{display:flex;justify-content:space-between;font-size:10.5px;color:#a89a72;letter-spacing:.1em;}
+.trow b{color:#b5483f;font-variant-numeric:tabular-nums;}
+.bar{height:2px;background:#e6dcbe;margin-top:9px;overflow:hidden;}
+.barfill{height:100%;width:0;background:linear-gradient(90deg,#d8c99c,#b5483f);transition:width .4s ease;}
+.qbox{flex:1;overflow-y:auto;padding:20px 18px 18px;}
+.qt{font-size:10px;letter-spacing:.3em;color:#a89a72;margin-bottom:10px;}
+.qq{font-size:15px;line-height:2;letter-spacing:.03em;color:#4a4232;margin-bottom:20px;font-weight:600;}
+.opt{display:block;width:100%;text-align:left;padding:13px 15px;margin-bottom:10px;border-radius:4px;border:1px solid #e2d6b4;background:rgba(255,255,255,.55);color:#5c5138;font-family:inherit;font-size:12.8px;line-height:1.75;cursor:pointer;transition:.22s;letter-spacing:.02em;animation:fin .4s ease both;}
+.opt:hover{border-color:#b5483f;background:rgba(255,255,255,.9);transform:translateX(2px);}
+.opt:active{transform:scale(.98);}
+@keyframes fin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.res{flex:1;overflow-y:auto;padding:22px 18px 24px;}
+.res .seal{display:inline-block;font-size:10px;letter-spacing:.2em;color:#b5483f;border:1px solid #b5483f;border-radius:3px;padding:3px 9px;}
+.res h2{margin:14px 0 6px;font-size:23px;letter-spacing:.14em;color:#5c5138;font-weight:600;}
+.res .dots{font-size:12px;letter-spacing:.32em;color:#b5483f;margin-bottom:6px;}
+.res .labels{font-size:10px;letter-spacing:.26em;color:#a89a72;margin-bottom:16px;}
+.res .div{height:1px;background:#e2d6b4;margin:16px 0;}
+.res .lb{font-size:10px;letter-spacing:.3em;color:#a89a72;margin-bottom:8px;}
+.res .desc{font-size:12.6px;line-height:2.15;color:#5c5138;letter-spacing:.02em;margin-bottom:6px;text-align:justify;}
+.res .say{position:relative;padding:13px 15px 13px 23px;background:rgba(255,255,255,.62);border-left:2px solid #b5483f;font-size:12.5px;line-height:2.05;color:#5c5138;letter-spacing:.02em;margin-bottom:8px;}
+.res .say .nm{display:block;text-align:right;font-size:10.5px;color:#a89a72;letter-spacing:.12em;margin-top:8px;}
+.res .fine{font-size:10.5px;line-height:1.9;color:#a89a72;letter-spacing:.04em;margin:12px 0 16px;}
+.res button{width:100%;padding:12px;border-radius:4px;border:1px solid #b5483f;background:transparent;color:#b5483f;font-family:inherit;font-size:12.5px;letter-spacing:.18em;cursor:pointer;transition:.25s;}
+.res button:hover{background:#b5483f;color:#fdf8e9;}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="screen cover" id="coverScreen">
+<div class="deco">🏮 🌸 🎐</div>
+<div class="k">本 丸 人 事 課</div>
+<h1>近侍选拔</h1>
+<div class="en">THIRTY FIVE QUESTIONS</div>
+<div class="deco2">⛩️ 🍁 ⛩️</div>
+<div class="line"></div>
+<div class="note">三十五问，四十名候选人。<br>答完取契合度最高的一位，附其本人一言。<br>结果仅供参考，请以实际相处为准。</div>
+<button id="startBtn">开始作答</button>
+</div>
+<div class="screen hide" id="quizScreen">
+<div class="top">
+<div class="trow"><span>近侍选拔 · 作答中</span><span><b id="qn">1</b> / 35</span></div>
+<div class="bar"><div class="barfill" id="barfill"></div></div>
+</div>
+<div class="qbox" id="qbox">
+<div class="qt" id="qt">第 一 问</div>
+<div class="qq" id="qq"></div>
+<div id="opts"></div>
+</div>
+</div>
+<div class="screen hide" id="resScreen"><div class="res" id="res"></div></div>
+</div>
+<script>
+(function(){
+var QS=[
+{q:"清晨，您推开门，最想先看见什么？",o:[["已经端着茶站好的人",0,1],["靠在廊柱上打盹的人",6,3],["抱着一摞文书等您签的人",1,5],["正在笑着喊您名字的人",4,2]]},
+{q:"出阵之前，您希望近侍对您说什么？",o:[["请交给我",4,1],["您跟在我身后",0,1],["今天风向不错",2,4],["什么也不说，把刀递上",3,7]]},
+{q:"文书堆到半夜，您希望他怎么做？",o:[["陪着您一页一页看完",0,1],["干脆把剩下的抱走",5,1],["端来热的东西，不开口",0,3],["在旁边坐着，等您犯困",3,6]]},
+{q:"您心情最坏的那天，最想听哪一种声音？",o:[["什么都不说，只是坐着",3,7],["轻声问您要不要喝水",0,6],["把烦人的事利落处理掉",1,5],["说些不相干的闲话",2,4]]},
+{q:"您想让他怎么称呼您？",o:[["主",1,0],["名字后面带敬称",0,3],["只有他叫得的那一个称呼",2,4],["只在私下里叫的小名",6,7]]},
+{q:"宅子里有人对您不敬，他应当？",o:[["冷着脸处理干净",1,7],["记下来，回头再说",5,1],["笑着挡回去",2,5],["先问您的意思",0,1]]},
+{q:"您想被怎么照顾？",o:[["三餐按点端上桌",0,1],["出门前替您理好衣领",0,2],["什么都不必管，您自己来",3,1],["看心情，随他高兴",2,4]]},
+{q:"午后您在廊下打盹，他会？",o:[["替您挡光",0,3],["站在不远处不吭声",3,1],["把您摇醒，说会着凉",0,1],["索性也躺下来",6,4]]},
+{q:"您希望他记得您的哪些事？",o:[["全部",1,5],["只记您高兴的那几件",0,2],["您身体的状况",0,1],["不必特意记",3,6]]},
+{q:"他若心里不痛快，您希望他？",o:[["当面说出来",4,1],["闷着不讲",7,3],["对旁人脸色难看",7,1],["加倍对您好",0,2]]},
+{q:"您想和他一起做的事是？",o:[["出阵",4,1],["煮饭",0,3],["赏樱",2,4],["什么都不做",3,6]]},
+{q:"半夜十二点您说想去赏樱，他应当？",o:[["说不行",1,7],["立刻备好披风带您去",0,4],["陪您去，一路数落您",1,4],["说等天亮再去",5,1]]},
+{q:"您想要的近侍是？",o:[["管事的",1,5],["陪着的",0,3],["逗您笑的",2,4],["话最少的那把",3,7]]},
+{q:"您写字的时候，希望他？",o:[["研墨",1,0],["抄副本",5,1],["趴在旁边看",6,0],["不在屋里，门开着",3,7]]},
+{q:"您受了小伤，他会？",o:[["立刻上药",0,1],["皱眉，什么也不说",1,7],["抱着您不肯撒手",4,0],["先问疼不疼，再动手",0,5]]},
+{q:"您希望他怎么看您的外貌？",o:[["不必夸",1,3],["常常夸",2,4],["只说实在的",5,1],["私下里说",3,7]]},
+{q:"他若话很多，您？",o:[["喜欢",2,4],["嫌吵",3,1],["看心情",5,4],["不听也不行",1,2]]},
+{q:"您想被怎么叫醒？",o:[["轻轻推一下",0,6],["把窗帘拉开",1,2],["早饭的香味",0,2],["别叫，睡到自然醒",3,6]]},
+{q:"您希望他怕什么？",o:[["怕您受伤",0,1],["怕被换掉",7,4],["怕您不说话",7,3],["什么都不怕",1,4]]},
+{q:"他送您东西，您希望是？",o:[["实用的",1,5],["好看的",2,4],["亲手做的",0,6],["旧东西",7,3]]},
+{q:"您犯了错，他应当？",o:[["当面指出来",1,5],["替您圆过去",5,2],["先安慰您",0,6],["把责任揽过去",0,1]]},
+{q:"您想看他在院子里做什么？",o:[["练刀",1,4],["晒太阳",3,6],["逗猫",6,0],["修剪花木",0,2]]},
+{q:"您希望他记得您的生日么？",o:[["记得，还送东西",2,0],["记得，什么都不说",7,3],["记得，做一桌菜",0,1],["不必记",1,3]]},
+{q:"宅中议事时，他应当？",o:[["站在您身后",1,0],["坐在您旁边",4,2],["替您开口",5,4],["候在门外",3,1]]},
+{q:"您想听他讲什么？",o:[["旧主的事",7,3],["出阵的事",4,1],["他自己的事",2,4],["什么都不必讲",3,7]]},
+{q:"您希望他的性子是？",o:[["温和",0,6],["严厉",1,3],["明快",2,4],["阴郁",7,3]]},
+{q:"并肩走的时候，您希望的姿势是？",o:[["他走前面",1,5],["他落后半步",0,1],["两个人并排",4,2],["他牵着您",4,6]]},
+{q:"他若做错了事？",o:[["认错很快",0,4],["沉默着改",7,1],["嘴硬但不改",2,4],["先把事办完再说",5,1]]},
+{q:"您生病的时候，您希望他？",o:[["当成天大的事",0,1],["冷静处理",5,1],["有点慌",6,0],["一句不说，只是不走开",7,3]]},
+{q:"您想被怎么称呼？",o:[["主人",1,0],["大名",2,5],["您",1,3],["小名",6,0]]},
+{q:"您希望他有多少秘密？",o:[["没有",0,1],["有一些，关于他的过去",7,3],["全都是不该说的",7,5],["随他",3,5]]},
+{q:"冬夜里您想怎么样？",o:[["他替您暖手炉",0,6],["他抱着您",4,0],["一起喝酒",2,4],["各做各的事，隔着一盏灯",3,7]]},
+{q:"您希望他什么时候最像一把刀？",o:[["战场上",1,4],["护着您的时候",0,1],["从来都不像",6,0],["生气的时候",7,4]]},
+{q:"您最希望他记住哪一种场合？",o:[["您交代过的事",1,5],["您随口提过的喜好",0,6],["您没有说出口的意思",5,3],["其实哪种都好，处久了自然知道",0,4]]},
+{q:"最后：您希望这位近侍陪您多久？",o:[["到他不再被需要为止",1,3],["一辈子",0,4],["比一辈子更长",7,4],["不必许诺",3,5]]}
+];
+var CANDS=[
+{n:"三日月宗近",w:{0:3,3:3,2:2,5:1},d:"三条家的老太爷。脾气宽和，不催不迫，最擅长让人放松下来。适合喜欢安静环境的人；事务性的琐碎工作他多半记不住，需要旁人补位。",s:"近侍么。嗯，也好。您慢慢来，我陪您坐着。"},
+{n:"小狐丸",w:{0:2,3:2,4:1,6:1},d:"性情温和，好商量，肯顺着人。愿意陪着熬夜，但他自己也容易困。适合想要温和陪伴、不需要强硬管束的人。",s:"交给我吧。您累的时候，靠过来就是。"},
+{n:"石切丸",w:{0:3,1:2,3:1},d:"稳重，耐性好，遇事习惯先挡在前面。不太擅长言辞安慰，但会把热茶备好。适合情绪起伏较大、需要稳定感的人。",s:"灾祸我替您挡下。别的您自己操心——茶在这儿。"},
+{n:"岩融",w:{4:3,2:2,0:1},d:"嗓门大，精神足，能把一整座宅子带得热闹起来。适合低落时需要有人把气氛吵醒的人。",s:"哈哈哈哈！热闹些才好嘛！走，先出去转一圈！"},
+{n:"今剣",w:{6:3,4:2,2:2},d:"年纪最小的一档。跑得快，说话也快，能让人笑出来的机会变多。重要事务不宜交给他。",s:"我跑得最快！您喊一声就成，我一眨眼就到！"},
+{n:"にっかり青江",w:{5:2,3:2,7:1,2:1},d:"嘴上爱说怪话，脑子却清楚，善于看穿别人的心思。适合喜欢被猜中的人；不喜欢被点破的，相处起来会有些难受。",s:"咦，您挑了我？那往后您的心思，我可要随便猜了。"},
+{n:"骨喰藤四郎",w:{3:3,7:1,0:1,1:1},d:"话少，记性差，但对在意的人记得很牢。不必交代太多，他也不会追问。",s:"名字我记不太牢。……可您的事，我记得。"},
+{n:"鯰尾藤四郎",w:{4:2,6:2,0:1},d:"活泼好动，精力过剩。适合爱热闹的日子；想清静的时候不要选他。",s:"好啊好啊！那我们从头玩起吧！"},
+{n:"一期一振",w:{0:3,1:2,2:2},d:"规矩周到，做事体面，安排有条理。照顾人很细心，管束也偏严。",s:"交给我。您的行程、文书、起居，我都会安排妥当。"},
+{n:"薬研藤四郎",w:{5:3,1:1,6:2},d:"像军医一样的一把。作息、饮食、用药他都会盯住。需要有人管住自己的人，选他最有效。",s:"先说好：饭按点吃，药不许停。这不是跟您商量。"},
+{n:"五虎退",w:{6:3,0:2,3:1},d:"胆子小，但在要紧事上从不退。会让人产生想护着他的念头，随后又被他反过来护着。",s:"我、我会努力的……您别嫌我慢就好。"},
+{n:"秋田藤四郎",w:{6:2,0:2,4:1},d:"手脚勤快，嘴甜，做错了事会立刻道歉。适合想要身边热闹又听话的人。",s:"那我先把茶端来！您歇着，别的都归我。"},
+{n:"前田藤四郎",w:{0:2,6:2,1:1},d:"认真守规矩，会把说过的每句话都写进册子。在他面前随口许诺要谨慎。",s:"主命如此。您说过的每一句，我都会记在册子上。"},
+{n:"平野藤四郎",w:{1:2,0:2,6:1},d:"稳当，不吵，办事有章法。适合忙起来顾不上身边人的时候。",s:"您忙您的。剩下的我来理，不必回头交代。"},
+{n:"厚藤四郎",w:{4:2,1:2,6:1},d:"说话直接，胆子大，敢当面顶撞。适合不希望身边只有顺从的人。",s:"我有话当面讲，不讲好听的。您受得住就行。"},
+{n:"乱藤四郎",w:{2:3,6:2,4:1},d:"爱打扮，嘴甜，会把气氛带得轻松。也会让人跟着一起在意仪表。",s:"那我们一起打扮得漂漂亮亮的，好不好？"},
+{n:"太鼓鐘貞宗",w:{2:2,4:2,6:1},d:"轻快爱逛，对宅子外头的事很熟。适合经常出门的人。",s:"外头的事交给我！回来我给您讲新鲜的。"},
+{n:"堀川国広",w:{0:2,1:2,4:1},d:"最会照料人的一档。灶上、榻上、文书桌上，都能替人理明白。",s:"您的衣裳、饭食、屋子，都交给我。我会收拾得很干净。"},
+{n:"山姥切国広",w:{7:2,3:2,0:1,1:1},d:"别扭，怕生，一旦跟定一个人就不再发问。相处需要一些耐心。",s:"……我不太会说话。要打要跑，您吩咐就是。"},
+{n:"山伏国広",w:{4:3,1:2,0:1},d:"嗓门与心意同样大，会把屋里的人拽出去晒太阳。",s:"走！先晒晒太阳，别的事回头再说！"},
+{n:"燭台切光忠",w:{0:3,2:2,1:1},d:"厨艺第一。有他在不会饿着；代价是菜单由他安排。",s:"饭我来做。您说想吃什么就行。"},
+{n:"大倶利伽羅",w:{3:3,7:2,1:1},d:"话最少的一档。会站在最不碍事的地方，但一回头就能看见他。",s:"……嗯。有事叫我。"},
+{n:"江雪左文字",w:{7:3,3:2,0:1},d:"满身旧伤，说话很轻。不劝人，只是陪着。适合什么都不想说的日子。",s:"我不劝您。您想说的时候，我在这儿。"},
+{n:"宗三左文字",w:{7:2,2:2,3:1},d:"懒散，心里却清楚。会替人避开难堪的场合。",s:"……也好。只要您别嫌我懒，我留在哪儿都一样。"},
+{n:"小夜左文字",w:{7:2,6:1,3:1,0:1},d:"最安静的一档。不出声，但叫他的时候从不会没有回应。",s:"您叫我，我就会来。"},
+{n:"加州清光",w:{2:3,6:1,7:1,4:1},d:"爱漂亮，讲究仪表，会顺带把身边的人也收拾得好看。",s:"先把您的头发理一理吧，这样可不成——"},
+{n:"大和守安定",w:{1:3,4:2,7:1},d:"认真，嘴上不饶人，说完了照样把事办妥。",s:"该说的我会说。说完了，我再替您办。"},
+{n:"歌仙兼定",w:{2:3,0:2,3:1},d:"讲究风雅，插花、研墨、摆茶都在行，也要求坐姿端正。",s:"姿态要正，坐相也要好。从今日起，我盯着您。"},
+{n:"和泉守兼定",w:{4:3,2:2,1:1},d:"直来直去，说话不过脑子，心是热的。适合受得住吵的人。",s:"有我在您就别怕。麻烦事全推给我！"},
+{n:"陸奥守吉行",w:{4:3,6:1,0:1},d:"土佐出身，嗓门亮，饭量也亮。会拉着人下地、喝酒、说些没正经的话。",s:"今晚先喝一杯！正事明日再说！"},
+{n:"鳴狐",w:{3:2,6:2,0:1},d:"身边总跟着一只狐狸。他话少，那只狐狸会替他把话说尽。",s:"（狐狸叫了一声）……它说，往后请多指教。"},
+{n:"鶴丸国永",w:{2:3,4:2,5:1},d:"爱吓人，也爱热闹。会被他惊着几回，但日子不会再闷。",s:"哦？我可是会吓人的。您的心脏撑得住么？"},
+{n:"へし切長谷部",w:{1:3,0:2,3:1,4:1,7:1},d:"办事严谨，规矩清楚，日程、文书、起居都能打理妥帖。性子偏强势，习惯把事揽在自己手里。不喜欢被旁人插手安排的人，可能会觉得他管得宽。",s:"请交给我。您的作息、文书、饭食与安危，我不会让给任何人。若嫌我管得多，现在改选还来得及。"},
+{n:"日本号",w:{4:3,0:2,2:1},d:"能喝能说能打，会把身边人灌醉，再背回去。",s:"先喝一场！喝完了什么都好说！"},
+{n:"巴形薙刀",w:{3:3,1:2,0:1},d:"冷静规矩，像一把量尺。能把宅子管得清清楚楚，也会盯得人不敢偷懒。",s:"规矩我立，时间表我排。您照做，日子会很清爽。"},
+{n:"千子村正",w:{2:3,4:2,7:1},d:"华丽，话多，主张强。他在旁边，场面会亮起来，也会热闹得过头。",s:"我会让整座宅子都亮起来——您等着瞧。"},
+{n:"髭切",w:{2:2,0:2,4:2,1:1},d:"笑呵呵的，记性不太好，该护人的时候护得极狠。",s:"嗯？近侍？好啊好啊。您的名字……我记住了。"},
+{n:"膝丸",w:{1:2,4:2,0:1,3:1},d:"认真守礼，处处按规矩来。适合想找个可以放心托付的。",s:"礼数我会做足。事情您尽管托付下来。"},
+{n:"物吉貞宗",w:{0:3,4:2,2:1},d:"讨人喜欢，嘴甜，运气也好。他在身边，坏事会少几件。",s:"有我在，运气会好起来的。您别担心。"},
+{n:"大般若長光",w:{2:3,3:1,5:2,0:1},d:"爱开玩笑，实则精明。会一边逗人，一边把事办完。",s:"哎哟，中选了。那我可得认真办，不然要被您笑话。"}
+];
+function fresh(){return {i:0,t:[0,0,0,0,0,0,0,0]};}
+var st=fresh();
+function el(id){return document.getElementById(id);}
+function render(){
+var q=QS[st.i];
+el("qt").textContent="第 "+(st.i+1)+" 问";
+el("qq").textContent=q.q;
+el("qn").textContent=st.i+1;
+el("barfill").style.width=(st.i/35*100)+"%";
+var box=el("opts");
+box.innerHTML="";
+q.o.forEach(function(o,k){
+var b=document.createElement("button");
+b.className="opt";
+b.style.animationDelay=(k*0.05)+"s";
+b.textContent=o[0];
+b.setAttribute("data-k",k);
+box.appendChild(b);
+});
+el("qbox").scrollTop=0;
+}
+function dots(v){
+var n=Math.max(1,Math.min(5,v));
+var s="";
+for(var i=0;i<5;i++){s+=(i<n?"●":"○");}
+return s;
+}
+function pick(o){
+st.t[o[1]]+=2;
+st.t[o[2]]+=2;
+st.i++;
+if(st.i>=QS.length){result();return;}
+render();
+}
+function result(){
+el("quizScreen").classList.add("hide");
+el("resScreen").classList.remove("hide");
+var best=null,bs=-1;
+CANDS.forEach(function(c){
+var s=0;
+for(var k in c.w){s+=st.t[k]*c.w[k];}
+if(s>bs){bs=s;best=c;}
+});
+el("res").innerHTML=
+'<span class="seal">選 抜 結 果</span>'+
+'<h2>'+best.n+'</h2>'+
+'<div class="dots">'+dots(5)+'</div>'+
+'<div class="labels">契合度 · 第一名</div>'+
+'<div class="div"></div>'+
+'<div class="lb">解 析</div>'+
+'<div class="desc">'+best.d+'</div>'+
+'<div class="div"></div>'+
+'<div class="lb">本 人 一 言</div>'+
+'<div class="say">'+best.s+'<span class="nm">——'+best.n+'</span></div>'+
+'<div class="fine">结果按本次答题的倾向计算，仅供参考。若与实际相处观感不符，请以您自己的判断为准。</div>'+
+'<button id="againBtn">重新作答</button>';
+el("res").scrollTop=0;
+el("againBtn").addEventListener("click",function(){
+st=fresh();
+el("resScreen").classList.add("hide");
+el("quizScreen").classList.remove("hide");
+render();
+});
+}
+el("opts").addEventListener("click",function(e){
+var b=e.target.closest(".opt");
+if(!b)return;
+var k=parseInt(b.getAttribute("data-k"),10);
+if(isNaN(k))return;
+pick(QS[st.i].o[k]);
+});
+el("startBtn").addEventListener("click",function(){
+st=fresh();
+el("coverScreen").classList.add("hide");
+el("quizScreen").classList.remove("hide");
+render();
+});
+render();
+})();
+</script>
+</body>
+</html>
