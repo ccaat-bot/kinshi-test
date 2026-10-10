@@ -154,9 +154,17 @@ var CANDS=[
 {n:"物吉貞宗",w:{0:3,4:2,2:1},d:"讨人喜欢，嘴甜，运气也好。他在身边，坏事会少几件。",s:"有我在，运气会好起来的。您别担心。"},
 {n:"大般若長光",w:{2:3,3:1,5:2,0:1},d:"爱开玩笑，实则精明。会一边逗人，一边把事办完。",s:"哎哟，中选了。那我可得认真办，不然要被您笑话。"}
 ];
-function fresh(){return {i:0,t:[0,0,0,0,0,0,0,0]};}
+function fresh(){return {i:0,t:[0,0,0,0,0,0,0,0],freq:[0,0,0,0,0,0,0,0]};}
 var st=fresh();
 function el(id){return document.getElementById(id);}
+(function countFreq(){
+QS.forEach(function(q){
+q.o.forEach(function(o){
+st.freq[o[1]]++;
+st.freq[o[2]]++;
+});
+});
+})();
 function render(){
 var q=QS[st.i];
 el("qt").textContent="第 "+(st.i+1)+" 问";
@@ -191,10 +199,26 @@ render();
 function result(){
 el("quizScreen").classList.add("hide");
 el("resScreen").classList.remove("hide");
+var avgFreq=0;
+for(var i=0;i<8;i++){avgFreq+=st.freq[i];}
+avgFreq=avgFreq/8||1;
+var u=[];
+var un=0;
+for(var i=0;i<8;i++){
+var raw=st.t[i];
+var normalized=st.freq[i]>0?(raw/st.freq[i]):0;
+u[i]=normalized;
+un+=normalized*normalized;
+}
+un=Math.sqrt(un)||1;
 var best=null,bs=-1;
 CANDS.forEach(function(c){
-var s=0;
-for(var k in c.w){s+=st.t[k]*c.w[k];}
+var dot=0,wn=0;
+for(var k in c.w){
+dot+=u[k]*c.w[k];
+wn+=c.w[k]*c.w[k];
+}
+var s=dot/(un*(Math.sqrt(wn)||1));
 if(s>bs){bs=s;best=c;}
 });
 el("res").innerHTML=
@@ -213,6 +237,7 @@ el("res").innerHTML=
 el("res").scrollTop=0;
 el("againBtn").addEventListener("click",function(){
 st=fresh();
+(function(){QS.forEach(function(q){q.o.forEach(function(o){st.freq[o[1]]++;st.freq[o[2]]++;});});})();
 el("resScreen").classList.add("hide");
 el("quizScreen").classList.remove("hide");
 render();
@@ -227,10 +252,12 @@ pick(QS[st.i].o[k]);
 });
 el("startBtn").addEventListener("click",function(){
 st=fresh();
+(function(){QS.forEach(function(q){q.o.forEach(function(o){st.freq[o[1]]++;st.freq[o[2]]++;});});})();
 el("coverScreen").classList.add("hide");
 el("quizScreen").classList.remove("hide");
 render();
 });
+(function(){QS.forEach(function(q){q.o.forEach(function(o){st.freq[o[1]]++;st.freq[o[2]]++;});});})();
 render();
 })();
 </script>
